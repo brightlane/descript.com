@@ -1,54 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{{TITLE}}</title>
-  <meta name="description" content="{{DESCRIPTION}}">
-  <meta name="keywords" content="{{KEYWORDS}}">
-  <link rel="canonical" href="{{URL}}">
-</head>
+import os
+from datetime import datetime, timedelta
 
+AFFILIATE = "https://get.descript.com/ejfgu2ujux4j"
+
+topics = [
+    "AI Video Editing Guide",
+    "Descript Review",
+    "Podcast Editing Workflow",
+    "How to Edit Videos Faster",
+    "Best AI Tools for Creators",
+    "Remove Filler Words Automatically",
+    "Text-Based Video Editing Explained",
+    "YouTube Editing Workflow",
+    "Content Repurposing Strategy",
+    "Beginner Video Editing Guide"
+]
+
+def generate_blog(day_offset):
+    date = (datetime.now() + timedelta(days=day_offset)).strftime("%Y-%m-%d")
+    topic = topics[day_offset % len(topics)]
+
+    os.makedirs("blogs", exist_ok=True)
+
+    html = f"""
+<html>
+<head>
+<title>{topic} - Descript Guide</title>
+</head>
 <body>
 
-<h1>{{H1}}</h1>
+<h1>{topic}</h1>
 
-<p>
-Descript is an AI-powered video and podcast editor that lets you edit media by editing text. It includes transcription, screen recording, filler word removal, and AI audio tools.
-</p>
+<p>Descript is an AI video and podcast editing tool that lets you edit media by editing text.</p>
 
-<a href="https://get.descript.com/ejfgu2ujux4j">
-  Try Descript Free →
-</a>
+<a href="{AFFILIATE}">Try Descript Free</a>
 
-<h2>What Descript Actually Does</h2>
-
+<h2>Key Features</h2>
 <ul>
-  <li>Transcribes audio into editable text</li>
-  <li>Removes filler words like "um" and "uh"</li>
-  <li>Enhances audio using Studio Sound</li>
-  <li>Allows screen + webcam recording</li>
+<li>Text-based editing</li>
+<li>Automatic transcription</li>
+<li>Filler word removal</li>
+<li>Screen recording</li>
 </ul>
 
-<h2>Why Creators Use It</h2>
-<p>
-Creators use Descript to speed up editing workflows and reduce time spent on manual timeline editing.
-</p>
+<h2>Why It Matters</h2>
+<p>It speeds up content creation by removing traditional timeline editing.</p>
 
-<h2>Best Use Cases</h2>
-<ul>
-  <li>YouTube videos</li>
-  <li>Podcast editing</li>
-  <li>Online courses</li>
-  <li>Marketing videos</li>
-</ul>
-
-<h2>Final Take</h2>
-<p>
-If you want faster content production using AI-assisted editing, Descript is one of the most practical tools available today.
-</p>
-
-<a href="https://get.descript.com/ejfgu2ujux4j">
-  Start Free Trial
-</a>
+<a href="{AFFILIATE}">Start Now</a>
 
 </body>
 </html>
+"""
+
+    filename = f"blogs/blog-{date}.html"
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(html)
+
+# 🚀 INFINITE LOOP MODE (runs forever until stopped)
+i = 0
+
+while True:
+    generate_blog(i)
+    print(f"Generated blog {i}")
+    i += 1
